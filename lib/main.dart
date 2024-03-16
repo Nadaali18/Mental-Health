@@ -1,6 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mental_health/VideoCubit.dart';
+import 'package:mental_health/screens/Profile_Screen.dart';
+import 'package:mental_health/screens/VideosScreen.dart';
+import 'package:mental_health/screens/login.dart';
 import 'package:mental_health/screens/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'CacheHelper.dart';
@@ -22,11 +26,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LayoutCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LayoutCubit()..GetUserData(),),
+        BlocProvider(create: (context) => VideoCubit()..fetchVideoInfo(),),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignUp(),
+        home: CacheHelper.GetData(key: 'uID') == null ? Login() : VideoScreen(),
       ),
     );
   }

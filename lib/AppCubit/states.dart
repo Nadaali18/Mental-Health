@@ -14,3 +14,7 @@ class GetUserError extends Home_States{}
 
 class UpdateSignInStatus extends Home_States{}
 
+class UpdateUserNameSuccess extends Home_States{}
+
+class UpdateUserNameError extends Home_States{}
+

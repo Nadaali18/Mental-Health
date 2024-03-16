@@ -1,9 +1,16 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mental_health/AppCubit/states.dart';
+import 'package:mental_health/screens/Profile_Screen.dart';
+import 'package:mental_health/screens/VideosScreen.dart';
+import 'package:youtube_data_api/models/video_data.dart';
+import 'package:youtube_data_api/youtube_data_api.dart';
 import '../CacheHelper.dart';
 import '../CreateUserModelFirestore.dart';
 import '../widgets/CustomToast.dart';
@@ -20,12 +27,16 @@ class LayoutCubit extends Cubit<Home_States>{
 
   GoogleSignIn googleSignIn = GoogleSignIn();
 
-  Future<void> signUpWithEmailAndPassword(String email, String password,String name) async {
+
+  Future<void> signUpWithEmailAndPassword(String email, String password,String name,dynamic context) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password).then((value) {
         UserCreate(name: name, email: email,uID: value.user!.uid);
-        CacheHelper.GetData(key: 'uID');
+        CacheHelper.PutData(key: 'uID', value: value.user!.uid);
+        CacheHelper.PutData(key: 'google', value: false);
       });
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>VideoScreen()), (route) => false);
+      showToast(message: 'Signed in successfully!');
       emit(UpdateSignInStatus());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
@@ -37,10 +48,15 @@ class LayoutCubit extends Cubit<Home_States>{
     }
   }
 
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
+  Future<void> signInWithEmailAndPassword(String email, String password,dynamic context) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) {
-          CacheHelper.PutData(key: 'uID', value: value.user!.uid);
+      await _auth.signInWithEmailAndPassword(email: email, password: password).then((value1) {
+        GetUserData().then((value2){
+          CacheHelper.PutData(key: 'uID', value: value1.user!.uid);
+          CacheHelper.PutData(key: 'google', value: false);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>VideoScreen()), (route) => false);
+          showToast(message: 'Signed in successfully!');
+        });
       });
       emit(UpdateSignInStatus());
     } on FirebaseAuthException catch (e) {
@@ -90,7 +106,7 @@ class LayoutCubit extends Cubit<Home_States>{
     );
     await FirebaseAuth.instance.signInWithCredential(cred).then((value) async{
       CacheHelper.PutData(key: 'uID', value: value.user!.uid);
-      showToast(message: 'Signed in!');
+      CacheHelper.PutData(key: 'google', value: true);
       await FirebaseFirestore.instance.collection('users').doc(value.user!.uid).get().then((value2) {
         if(value2.exists == false){
           UserCreate(
@@ -104,7 +120,11 @@ class LayoutCubit extends Cubit<Home_States>{
       }).catchError((onError){
         showToast(message: 'Something Wrong has happened');
       });
-      GetUserData();
+      GetUserData().then((value)
+      {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>VideoScreen()), (route) => false);
+        showToast(message: 'Signed up successfully!');
+      });
     }).catchError((onError){
       print(onError.toString());
       showToast(message: 'Something Wrong has happened');
@@ -114,11 +134,38 @@ class LayoutCubit extends Cubit<Home_States>{
   }
 
   Future<dynamic> signoutGoogle() async {
-    await googleSignIn.disconnect();
+    if(CacheHelper.GetData(key: 'google') == true){
+      await googleSignIn.disconnect();
+    }
     FirebaseAuth.instance.signOut();
     usermodel = null;
     CacheHelper.sharedPreferences?.remove('uID');
-    CacheHelper.sharedPreferences?.remove('email');
+    CacheHelper.sharedPreferences?.remove('google');
+    emit(UpdateSignInStatus());
+  }
+
+  Future<void> updateUserName(String newName) async {
+    try {
+      final userId = CacheHelper.GetData(key: 'uID');
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'name': newName,
+      });
+      // Update local user model
+      usermodel?.name = newName;
+      showToast(message: 'Name updated successfully!');
+      emit(UpdateUserNameSuccess());
+    } catch (e) {
+      print(e.toString());
+      showToast(message: 'Failed to update name. Please try again.');
+      emit(UpdateUserNameError());
+    }
+  }
+
+
+  Future<dynamic> signoutNormal() async {
+    FirebaseAuth.instance.signOut();
+    usermodel = null;
+    CacheHelper.sharedPreferences?.remove('uID');
     emit(UpdateSignInStatus());
   }
 

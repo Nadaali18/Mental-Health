@@ -112,12 +112,13 @@ class _SignUpState extends State<SignUp> {
                         padding: const EdgeInsets.all(8),
                         child: ElevatedButton(
                           onPressed: () {
-                            LayoutCubit.get(context).signUpWithEmailAndPassword(emailController.text, passController.text,fullNameController.text);
+                            LayoutCubit.get(context).signUpWithEmailAndPassword(emailController.text, passController.text,fullNameController.text,context);
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF00677f),
                               minimumSize: const Size(335, 45)),
                           child: const CustomText(
+                            color: Colors.white,
                             text: 'Sign Up',
                           ),
                         ),
@@ -136,7 +137,7 @@ class _SignUpState extends State<SignUp> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              LayoutCubit.get(context).signUpGoogle();
+                              LayoutCubit.get(context).signUpGoogle(context: context);
                             },
                             child: Container(
                               padding: const EdgeInsets.all(8),
@@ -152,26 +153,10 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          GestureDetector(
-                            onTap: () {
-                              LayoutCubit.get(context).signInWithFacebook();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(color: Colors.black, width: 0.5),
-                              ),
-                              child: const Icon(
-                                Icons.facebook,
-                                color: Colors.blue,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                          // const SizedBox(width: 12),
                           // GestureDetector(
-                          //   onTap: () {},
+                          //   onTap: () {
+                          //     LayoutCubit.get(context).signInWithFacebook();
+                          //   },
                           //   child: Container(
                           //     padding: const EdgeInsets.all(8),
                           //     decoration: BoxDecoration(
@@ -179,7 +164,8 @@ class _SignUpState extends State<SignUp> {
                           //       border: Border.all(color: Colors.black, width: 0.5),
                           //     ),
                           //     child: const Icon(
-                          //       Icons.apple,
+                          //       Icons.facebook,
+                          //       color: Colors.blue,
                           //       size: 20,
                           //     ),
                           //   ),

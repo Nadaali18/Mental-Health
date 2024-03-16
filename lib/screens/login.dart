@@ -70,7 +70,8 @@ class _LoginState extends State<Login> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const CustomTextField(
+                    CustomTextField(
+                      controller: emailController,
                       text: 'Email@Mail.com',
                     ),
                     const Padding(
@@ -83,6 +84,7 @@ class _LoginState extends State<Login> {
                     ),
                     CustomTextField(
                         text: 'Password',
+                        controller: passController,
                         obscureText: isPassVisible,
                         icon: isPassVisible
                             ? Icons.visibility
@@ -96,12 +98,13 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(10),
                       child: ElevatedButton(
                         onPressed: () {
-                          LayoutCubit.get(context).signInWithEmailAndPassword(emailController.text, passController.text);
+                          LayoutCubit.get(context).signInWithEmailAndPassword(emailController.text, passController.text,context);
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF00677f),
                             minimumSize: const Size(335, 45)),
                         child: const CustomText(
+                          color: Colors.white,
                           text: 'Login',
                         ),
                       ),
@@ -120,7 +123,7 @@ class _LoginState extends State<Login> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            LayoutCubit.get(context).signUpGoogle();
+                            LayoutCubit.get(context).signUpGoogle(context: context);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
@@ -136,26 +139,10 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         const SizedBox(width: 12),
-                        GestureDetector(
-                          onTap: () {
-                            LayoutCubit.get(context).signInWithFacebook();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.black, width: 0.5),
-                            ),
-                            child: const Icon(
-                              Icons.facebook,
-                              color: Colors.blue,
-                              size: 20,
-                            ),
-                          ),
-                        ),
-                        // const SizedBox(width: 12),
                         // GestureDetector(
-                        //   onTap: () {},
+                        //   onTap: () {
+                        //     LayoutCubit.get(context).signInWithFacebook();
+                        //   },
                         //   child: Container(
                         //     padding: const EdgeInsets.all(8),
                         //     decoration: BoxDecoration(
@@ -163,7 +150,8 @@ class _LoginState extends State<Login> {
                         //       border: Border.all(color: Colors.black, width: 0.5),
                         //     ),
                         //     child: const Icon(
-                        //       Icons.apple,
+                        //       Icons.facebook,
+                        //       color: Colors.blue,
                         //       size: 20,
                         //     ),
                         //   ),
