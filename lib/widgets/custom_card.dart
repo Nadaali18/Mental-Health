@@ -4,7 +4,7 @@ import 'package:mental_health/widgets/custom_text.dart';
 class CustomCard extends StatefulWidget {
   const CustomCard({super.key, this.text,this.text1});
   final String? text;
-  final String? text1;
+   final String? text1;
   @override
   State<CustomCard> createState() => _CustomCardState();
 }
@@ -37,14 +37,14 @@ class _CustomCardState extends State<CustomCard> {
                       color: const Color(0xFFe85076),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomText(
+                   Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: CustomText(
                       text: '${widget.text1}',
                       fontWeight: FontWeight.bold,
                       color: const Color.fromARGB(255, 112, 26, 47),
-                    ),
-                  ),
+                                     ),
+                   ),
                 ],
               ),
             ),
