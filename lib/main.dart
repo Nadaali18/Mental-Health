@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health/VideoCubit.dart';
 import 'package:mental_health/screens/Profile_Screen.dart';
 import 'package:mental_health/screens/VideosScreen.dart';
+import 'package:mental_health/screens/home.dart';
 import 'package:mental_health/screens/login.dart';
 import 'package:mental_health/screens/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: CacheHelper.GetData(key: 'uID') == null ? Login() : VideoScreen(),
+        home: CacheHelper.GetData(key: 'uID') == null ? Login() : Home(),
       ),
     );
   }
