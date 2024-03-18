@@ -50,20 +50,28 @@ class _TaskState extends State<Task> {
                       ),
                     ),
                    const Padding(
-                      padding:  EdgeInsets.all(8.0),
-                      child:  CustomText(
-                        text: 'Sat, Mar 16'
-                        ),
-                    ),
-                    const CustomText(
-                      text:'Lets Go To Improve Your Mental Health!',
-                      fontWeight: FontWeight.bold,
+                      padding: EdgeInsets.all(8.0),
+                      child: CustomText(
+                        text: 'Sat, Mar 16',
                       ),
-                    IconButton(
-                      color:const Color(0xFFe85076),
-                      onPressed: (){}, 
-                      icon: const Icon(Icons.arrow_forward_rounded,color: Colors.white,
-                      ))
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CustomText(
+                        text: 'Lets Go To Improve Your Mental Health!',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                   IconButton(
+                        color: const Color.fromARGB(255, 46, 157, 194),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Test()));
+                        },
+                        icon: const Icon(
+                          Icons.arrow_forward_rounded,
+                          color: Colors.white,
+                        ))
               ],
                ),
               ),
