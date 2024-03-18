@@ -18,16 +18,15 @@ class _RelaxedState extends State<Relaxed> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 40,),
+            SizedBox(height: 30,),
             SizedBox(
               height: 100,
               child: Padding(
-                padding:  EdgeInsets.all(10),
+                padding:  EdgeInsets.all(7),
                 child: CustomText(
                   text: 'Daily Motivate',
                   fontSize: 25,
                   fontFamily: 'Pacifico',
-                  fontWeight: FontWeight.bold,
                 ),
                ),), 
               SizedBox(
