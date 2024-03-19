@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/custom_elevated_button.dart';
-import 'package:flutter_application_1/custom_text.dart';
+
+import '../widgets/custom_elevated_button.dart';
+import '../widgets/custom_text.dart';
 
 class Test extends StatefulWidget {
   const Test({super.key});
@@ -15,10 +16,9 @@ class _TestState extends State<Test> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CustomText(text: 'Lets Chek Our Mental Health',fontFamily: 'Pacifico',color: Colors.black,),
-        
+        title: CustomText(text: 'Lets Check Our Mental Health',fontFamily: 'Pacifico',color: Colors.black,),
         ),
-        body: const SingleChildScrollView(
+        body:  SingleChildScrollView(
           child: Column(
             children: [
             CustomElevatedButton(

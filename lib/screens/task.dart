@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mental_health/AppCubit/cubit.dart';
+import 'package:mental_health/screens/test.dart';
 import 'package:mental_health/widgets/custom_text.dart';
 
 class Task extends StatefulWidget {
@@ -16,11 +18,11 @@ class _TaskState extends State<Task> {
        crossAxisAlignment: CrossAxisAlignment.start,
        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
+           SizedBox(
             height: 100,
             child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: CustomText(text:'Welcome, Nada ^_^',fontSize: 25,fontWeight: FontWeight.bold,fontFamily: 'Pacifico',),
+              child: CustomText(text:'Welcome, ${LayoutCubit.get(context).usermodel!.name} ^_^',fontSize: 25,fontWeight: FontWeight.bold,fontFamily: 'Pacifico',),
             ),
           ),
           Center(

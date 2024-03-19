@@ -22,7 +22,7 @@ class _CustomCardState extends State<CustomCard> {
             child: Card(
               elevation: 25,
               shadowColor: Colors.black54,
-              color: const Color(0xFFfbf6f1),
+              color: const Color(0xFFADD8E6),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
@@ -34,7 +34,7 @@ class _CustomCardState extends State<CustomCard> {
                     child: CustomText(
                       text: '${widget.text}',
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFFe85076),
+                      color:  const Color(0xFF006D6D),
                     ),
                   ),
                    Padding(
@@ -42,7 +42,7 @@ class _CustomCardState extends State<CustomCard> {
                      child: CustomText(
                       text: '${widget.text1}',
                       fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 112, 26, 47),
+                      color: Colors.white,
                                      ),
                    ),
                 ],

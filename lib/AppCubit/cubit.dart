@@ -13,6 +13,7 @@ import 'package:youtube_data_api/models/video_data.dart';
 import 'package:youtube_data_api/youtube_data_api.dart';
 import '../CacheHelper.dart';
 import '../CreateUserModelFirestore.dart';
+import '../screens/home.dart';
 import '../widgets/CustomToast.dart';
 
 class LayoutCubit extends Cubit<Home_States>{
@@ -35,7 +36,7 @@ class LayoutCubit extends Cubit<Home_States>{
         CacheHelper.PutData(key: 'uID', value: value.user!.uid);
         CacheHelper.PutData(key: 'google', value: false);
       });
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>VideoScreen()), (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()), (route) => false);
       showToast(message: 'Signed in successfully!');
       emit(UpdateSignInStatus());
     } on FirebaseAuthException catch (e) {
@@ -54,7 +55,7 @@ class LayoutCubit extends Cubit<Home_States>{
         GetUserData().then((value2){
           CacheHelper.PutData(key: 'uID', value: value1.user!.uid);
           CacheHelper.PutData(key: 'google', value: false);
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>VideoScreen()), (route) => false);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()), (route) => false);
           showToast(message: 'Signed in successfully!');
         });
       });
@@ -122,7 +123,7 @@ class LayoutCubit extends Cubit<Home_States>{
       });
       GetUserData().then((value)
       {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>VideoScreen()), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()), (route) => false);
         showToast(message: 'Signed up successfully!');
       });
     }).catchError((onError){

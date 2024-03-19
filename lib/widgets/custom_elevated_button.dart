@@ -47,7 +47,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
                   fontSize: 20,
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 46, 157, 194),
+                  backgroundColor: const Color(0xFFADD8E6),
                   foregroundColor: Colors.white,
                   padding:
                       EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
@@ -73,7 +73,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
                   fontSize: 20,
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 46, 157, 194),
+                  backgroundColor: const Color(0xFFADD8E6),
                   foregroundColor: Colors.white,
                   padding:
                       EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),

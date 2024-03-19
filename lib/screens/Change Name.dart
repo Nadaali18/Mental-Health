@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health/AppCubit/cubit.dart';
 
 import '../AppCubit/states.dart';
+import '../widgets/custom_text.dart';
 
 class ChangeNamePage extends StatelessWidget {
   TextEditingController controller = TextEditingController();
@@ -10,13 +11,9 @@ class ChangeNamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Change Name',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: const Color(0xFF00677f), // Dark pastel color
-        elevation: 0,
-      ),
+      backgroundColor: Colors.white,
+      title: CustomText(text: 'Update Profile',fontFamily: 'Pacifico',color: Colors.black,),
+    ),
       body: BlocConsumer<LayoutCubit, Home_States>(
         listener: (context, state) {},
         builder: (context, state) {
