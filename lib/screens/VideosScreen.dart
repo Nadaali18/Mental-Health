@@ -59,8 +59,8 @@ class _VideoScreenState extends State<VideoScreen> {
                 return videoInfos.isEmpty
                     ? _buildProgressIndicator(context) // Show progress indicator when data is being fetched
                     : RefreshIndicator(
-                  onRefresh: () => context.read<VideoCubit>().fetchVideoInfo(),
-                  child: ListView.builder(
+                                      onRefresh: () => context.read<VideoCubit>().fetchVideoInfo(),
+                                      child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: videoInfos.length,
@@ -119,8 +119,8 @@ class _VideoScreenState extends State<VideoScreen> {
                         ],
                       );
                     },
-                  ),
-                );
+                                      ),
+                                    );
               },
             ),
           ],
@@ -140,6 +140,7 @@ class _VideoScreenState extends State<VideoScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: MediaQuery.of(context).size.height/2 - 100,),
             CircularProgressIndicator(
               color: const Color(0xFFADD8E6),
             ),
